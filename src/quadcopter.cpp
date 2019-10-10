@@ -93,6 +93,7 @@ void quadcopter_Debug_Monitor_aktivieren(unsigned long baudrate){
 
 void quadcopter_Debug_Monitor_deaktivieren(){
     DEBUG_MONITOR_AKTIVIEREN = false;
+    Serial.end();
 };
 
 void quadcopter_Autobetrieb(){
