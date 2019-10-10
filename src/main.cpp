@@ -25,19 +25,19 @@ void test1(){
   quadcopter_Autobetrieb();
   quadcopter_Modus_veraendern(MODUS_MANUEL);
   quadcopter_Manuellbetrieb();
-  quadcopter_println("Test 1 end");
+  quadcopter_println("Test 1 end\n");
 };
 
 void test2(){
   quadcopter_println("Test 2 start");
   quadcopter_Autobetrieb();
   quadcopter_Modus_veraendern(MODUS_MANUEL);
-  quadcopter_println("Test 2 end");
+  quadcopter_println("Test 2 end\n");
 };
 
 void test3(){
   quadcopter_println("Test 3 start");
   quadcopter_Debug_Monitor_deaktivieren();
   quadcopter_Manuellbetrieb();
-  quadcopter_println("Test 3 end");
+  quadcopter_println("Test 3 end\n");
 };

@@ -106,13 +106,13 @@ void quadcopter_Autobetrieb(){
         quadcopter_nach_oben(500);
         quadcopter_aufhalten(500);
         quadcopter_nach_vorne(500);
-        quadcopter_aufhalten(2000);
+        quadcopter_aufhalten(QUADCOPTER_HALTVERZOEGERUNG);
         quadcopter_nach_hinten(500);
-        quadcopter_aufhalten(2000);
+        quadcopter_aufhalten(QUADCOPTER_HALTVERZOEGERUNG);
         quadcopter_nach_rechts(500);
-        quadcopter_aufhalten(2000);
+        quadcopter_aufhalten(QUADCOPTER_HALTVERZOEGERUNG);
         quadcopter_nach_links(500);
-        quadcopter_aufhalten(2000);
+        quadcopter_aufhalten(QUADCOPTER_HALTVERZOEGERUNG);
         quadcopter_aufsetzen(500);
         quadcopter_println("----------------------------------");
         quadcopter_println("Automodus fertig");
@@ -131,6 +131,13 @@ void quadcopter_Manuellbetrieb(){
     quadcopter_println("----------------------------------");
     if (QUADCOPTER_MODUS==MODUS_MANUEL)
     {
+        quadcopter_print("Manuellmodus läuft ");
+        for (size_t i = 0; i < 5; i++)
+        {
+            quadcopter_print(".");
+            quadcopter_verzoegen(300);
+        }
+        quadcopter_println();
         quadcopter_println("----------------------------------");
         quadcopter_println("Manuellmodus fertig");
         quadcopter_println("__________________________________");
@@ -143,4 +150,13 @@ void quadcopter_Manuellbetrieb(){
 };
 void quadcopter_Modus_veraendern(bool Modus){
     QUADCOPTER_MODUS = Modus;
+    if (Modus == MODUS_AUTO)
+    {
+        quadcopter_println("Automodus ist aktiv");
+    } else
+    {
+        quadcopter_println("Manuellmodus ist aktiv");
+    }
+    
+    
 }

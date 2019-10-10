@@ -4,6 +4,7 @@
 #define MODUS_MANUEL false
 extern bool DEBUG_MONITOR_AKTIVIEREN;
 extern bool QUADCOPTER_MODUS;
+#define QUADCOPTER_HALTVERZOEGERUNG 2000
 
 /* Funktionsprototypen */
 /* Grundfunktionen */
@@ -24,8 +25,6 @@ void quadcopter_Modus_veraendern(bool Modus);
 // Serial Monitor zum debuggen vorbereiten
 void quadcopter_Debug_Monitor_aktivieren(unsigned long baudrate);
 void quadcopter_Debug_Monitor_deaktivieren();
-// #define quadcopter_print(input) Serial.print(input);
-// #define quadcopter_println(input) Serial.println(input);
 #define quadcopter_print(input) if(DEBUG_MONITOR_AKTIVIEREN) Serial.print(input);
 #define quadcopter_println(input) if(DEBUG_MONITOR_AKTIVIEREN) Serial.println(input);
 
