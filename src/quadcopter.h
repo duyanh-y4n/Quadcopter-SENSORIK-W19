@@ -1,12 +1,27 @@
 #include <Arduino.h>
-/* Macros */
+/**
+ *  Macros 
+*/
+/* Modus Macros*/
 #define MODUS_AUTO true
 #define MODUS_MANUEL false
-extern bool DEBUG_MONITOR_AKTIVIEREN;
 extern bool QUADCOPTER_MODUS;
+
+/* Debug Output Schalter*/
+extern bool DEBUG_MONITOR_AKTIVIEREN;
+
+/* Betriebsparameter*/
 #define QUADCOPTER_HALTVERZOEGERUNG 2000
 
-/* Funktionsprototypen */
+//TODO:
+/* Hardware Initializationsparameter */
+
+/**
+ *  Funktionsprototypen 
+*/
+/* Initialization */
+void quadcopter_hardware_init();
+
 /* Grundfunktionen */
 void quadcopter_links_abbiegen(unsigned int Verzoegerung);
 void quadcopter_rechts_abbiegen(unsigned int Verzoegerung);

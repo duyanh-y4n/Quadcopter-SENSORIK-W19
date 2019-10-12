@@ -1,5 +1,9 @@
 #include "quadcopter.h"
 
+void quadcopter_hardware_init(){
+    
+};
+
 void quadcopter_links_abbiegen(unsigned int Verzoegerung){
     quadcopter_print("Biegt nach LINKS... ");
     quadcopter_verzoegen(Verzoegerung);
