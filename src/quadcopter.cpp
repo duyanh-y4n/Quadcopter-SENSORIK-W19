@@ -1,93 +1,106 @@
 #include "quadcopter.h"
 
+//TODO
 void quadcopter_hardware_init(){
     
 };
 
-void quadcopter_links_abbiegen(unsigned int Verzoegerung){
+//TODO
+void quadcopter_links_abbiegen(unsigned int Dauer){
     quadcopter_print("Biegt nach LINKS... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_rechts_abbiegen(unsigned int Verzoegerung){
+//TODO
+void quadcopter_rechts_abbiegen(unsigned int Dauer){
     quadcopter_println("Biegt nach RECHTS...");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_nach_vorne(unsigned int Verzoegerung){
+//TODO
+void quadcopter_nach_vorne(unsigned int Dauer){
     quadcopter_print("Fliegt nach VORNE... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_nach_hinten(unsigned int Verzoegerung){
+//TODO
+void quadcopter_nach_hinten(unsigned int Dauer){
     quadcopter_print("Fliegt nach HINTEN... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_nach_rechts(unsigned int Verzoegerung){
+//TODO
+void quadcopter_nach_rechts(unsigned int Dauer){
     quadcopter_print("fliegt nach RECHTS... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_nach_links(unsigned int Verzoegerung){
+//TODO
+void quadcopter_nach_links(unsigned int Dauer){
     quadcopter_print("Fliegt nach LINKS... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_nach_oben(unsigned int Verzoegerung){
+//TODO
+void quadcopter_nach_oben(unsigned int Dauer){
     quadcopter_print("Fliegt nach OBEN... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_nach_unten(unsigned int Verzoegerung){
+//TODO
+void quadcopter_nach_unten(unsigned int Dauer){
     quadcopter_print("Fliegt nach UNTEN... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_aufhalten(unsigned int Verzoegerung){
+//TODO
+void quadcopter_aufhalten(unsigned int Dauer){
     quadcopter_print("HALT AUF... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_aufsetzen(unsigned int Verzoegerung){
+//TODO
+void quadcopter_aufsetzen(unsigned int Dauer){
     quadcopter_print("SETZT AUF... ");
-    quadcopter_verzoegen(Verzoegerung);
+    quadcopter_verzoegen(Dauer);
     quadcopter_print("Fertig (nach ");
-    quadcopter_print(Verzoegerung);
+    quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
-void quadcopter_verzoegen(unsigned int Verzoegerung){
-    delay(Verzoegerung);
+//TODO
+void quadcopter_verzoegen(unsigned int Dauer){
+    delay(Dauer);
 };
 
+//TODO
 void quadcopter_Debug_Monitor_aktivieren(unsigned long baudrate){
     DEBUG_MONITOR_AKTIVIEREN = true;
     Serial.begin(baudrate);
@@ -95,11 +108,13 @@ void quadcopter_Debug_Monitor_aktivieren(unsigned long baudrate){
     Serial.println(baudrate);
 };
 
+//TODO
 void quadcopter_Debug_Monitor_deaktivieren(){
     DEBUG_MONITOR_AKTIVIEREN = false;
     Serial.end();
 };
 
+//TODO
 void quadcopter_Autobetrieb(){
     quadcopter_println("__________________________________");
     quadcopter_println("Automodus start");
@@ -110,13 +125,13 @@ void quadcopter_Autobetrieb(){
         quadcopter_nach_oben(500);
         quadcopter_aufhalten(500);
         quadcopter_nach_vorne(500);
-        quadcopter_aufhalten(QUADCOPTER_HALTVERZOEGERUNG);
+        quadcopter_aufhalten(REGLER_HALTVERZOEGERUNG);
         quadcopter_nach_hinten(500);
-        quadcopter_aufhalten(QUADCOPTER_HALTVERZOEGERUNG);
+        quadcopter_aufhalten(REGLER_HALTVERZOEGERUNG);
         quadcopter_nach_rechts(500);
-        quadcopter_aufhalten(QUADCOPTER_HALTVERZOEGERUNG);
+        quadcopter_aufhalten(REGLER_HALTVERZOEGERUNG);
         quadcopter_nach_links(500);
-        quadcopter_aufhalten(QUADCOPTER_HALTVERZOEGERUNG);
+        quadcopter_aufhalten(REGLER_HALTVERZOEGERUNG);
         quadcopter_aufsetzen(500);
         quadcopter_println("----------------------------------");
         quadcopter_println("Automodus fertig");
@@ -129,6 +144,7 @@ void quadcopter_Autobetrieb(){
     }
 };
 
+//TODO
 void quadcopter_Manuellbetrieb(){
     quadcopter_println("__________________________________");
     quadcopter_println("Manuellmodus start");
@@ -152,6 +168,8 @@ void quadcopter_Manuellbetrieb(){
         quadcopter_println("__________________________________");
     }
 };
+
+//TODO
 void quadcopter_Modus_veraendern(bool Modus){
     QUADCOPTER_MODUS = Modus;
     if (Modus == MODUS_AUTO)
@@ -161,6 +179,4 @@ void quadcopter_Modus_veraendern(bool Modus){
     {
         quadcopter_println("Manuellmodus ist aktiv");
     }
-    
-    
 }
