@@ -53,6 +53,7 @@ void quadcopter_software_init(){
 void quadcopter_links_abbiegen(unsigned int Dauer){
     quadcopter_print("Biegt nach LINKS... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_ROTATION_VERTICAL_LINKS);
     quadcopter_verzoegern(Dauer);
 
@@ -65,6 +66,7 @@ void quadcopter_links_abbiegen(unsigned int Dauer){
 void quadcopter_rechts_abbiegen(unsigned int Dauer){
     quadcopter_println("Biegt nach RECHTS...");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_ROTATION_VERTICAL_RECHTS);
     quadcopter_verzoegern(Dauer);
 
@@ -77,6 +79,7 @@ void quadcopter_rechts_abbiegen(unsigned int Dauer){
 void quadcopter_nach_vorne(unsigned int Dauer){
     quadcopter_print("Fliegt nach VORNE... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_HORIZONTAL_OUTPUT_PIN, REGLER_PWM_RECHTS);
     quadcopter_verzoegern(Dauer);
 
@@ -89,6 +92,7 @@ void quadcopter_nach_vorne(unsigned int Dauer){
 void quadcopter_nach_hinten(unsigned int Dauer){
     quadcopter_print("Fliegt nach HINTEN... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_ROTATION_HORIZONTAL_OUTPUT_PIN, REGLER_PWM_HINTEN);
     quadcopter_verzoegern(Dauer);
 
@@ -101,6 +105,7 @@ void quadcopter_nach_hinten(unsigned int Dauer){
 void quadcopter_nach_rechts(unsigned int Dauer){
     quadcopter_print("fliegt nach RECHTS... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN, REGLER_PWM_RECHTS);
     quadcopter_verzoegern(Dauer);
 
@@ -113,6 +118,7 @@ void quadcopter_nach_rechts(unsigned int Dauer){
 void quadcopter_nach_links(unsigned int Dauer){
     quadcopter_print("Fliegt nach LINKS... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN, REGLER_PWM_RECHTS);
     quadcopter_verzoegern(Dauer);
 
@@ -125,6 +131,7 @@ void quadcopter_nach_links(unsigned int Dauer){
 void quadcopter_nach_oben(unsigned int Dauer){
     quadcopter_print("Fliegt nach OBEN... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_OBEN);
     quadcopter_verzoegern(Dauer);
 
@@ -137,6 +144,7 @@ void quadcopter_nach_oben(unsigned int Dauer){
 void quadcopter_nach_unten(unsigned int Dauer){
     quadcopter_print("Fliegt nach UNTEN... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_UNTEN);
     quadcopter_verzoegern(Dauer);
 
@@ -149,6 +157,7 @@ void quadcopter_nach_unten(unsigned int Dauer){
 void quadcopter_aufhalten(unsigned int Dauer){
     quadcopter_print("HALT AUF... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(l_x_pwm_pin, REGLER_PWN_L_X_STABIL);
     analogWrite(l_y_pwm_pin, REGLER_PWN_L_Y_STABIL);
     analogWrite(r_x_pwm_pin, REGLER_PWN_R_X_STABIL);
@@ -164,6 +173,7 @@ void quadcopter_aufhalten(unsigned int Dauer){
 void quadcopter_aufsetzen(unsigned int Dauer){
     quadcopter_print("SETZT AUF... ");
 
+    // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_UNTEN);
     quadcopter_verzoegern(Dauer);
 
@@ -235,13 +245,13 @@ void quadcopter_Manuellbetrieb(){
     // LED Betriebsmodusanzeiger
     digitalWrite(LED_BUILTIN, LOW);
 
-    // Poti Werte ablesen
+    // Joystick Werte ablesen
     joystick_l_x_pos = analogRead(l_x_pin);
     joystick_l_y_pos = analogRead(l_y_pin);
     joystick_r_x_pos = analogRead(r_x_pin);
     joystick_r_y_pos = analogRead(r_y_pin);
 
-    // Poti Werte im Bereich [1,255] quantisieren
+    // Joystick Werte im Bereich [1,255] quantisieren
     l_x_pwm_wert = map(joystick_l_x_pos, 0, 1023, 0, 255);
     l_y_pwm_wert = map(joystick_l_y_pos, 0, 1023, 0, 255);
     r_x_pwm_wert = map(joystick_r_x_pos, 0, 1023, 0, 255);
