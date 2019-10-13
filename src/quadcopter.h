@@ -1,3 +1,5 @@
+/** \file */
+
 #include <Arduino.h>
 /***********************************************
  *  MACROS UND PROJEKTPARAMETERN 
@@ -8,7 +10,10 @@
 #define MODUS_MANUEL false
 
 /* Betriebsparameter*/
-// TRANSLATIONSBEWEGUNGSPARAMETERN
+/** \defgroup TRANSLATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Translation
+ * \brief PWM-Werte der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
+  * @{
+ */
 #define REGLER_HALTEDAUER 2000
 #define REGLER_PWM_OBEN 125
 #define REGLER_PWM_UNTEN 110
@@ -17,27 +22,45 @@
 #define REGLER_PWM_VORNE 125
 #define REGLER_PWM_HINTEN 125
 #define REGLER_PWM_HALT 125
+/** @} */
 
-// ROTATIONSBEWEGUNGSPARAMETERN
+/** \defgroup ROTATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Rotation
+ * \brief PWM-Werte der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
+  * @{
+ */
 #define REGLER_PWM_ROTATION_VERTICAL_RECHTS 130
 #define REGLER_PWM_ROTATION_VERTICAL_LINKS 125
 #define REGLER_PWM_ROTATION_HORIZONTAL_RECHTS 130
 #define REGLER_PWM_ROTATION_HORIZONTAL_LINKS 125
+/** @} */
 
-// STARTZUSTANDSPARAMETERN
+/** \defgroup STARTZUSTANDSPARAMETERN Bewegungsparameter - Start Zustand
+ * \brief PWM-Werte des Startzustands für jeden Achse des Joystick
+  * @{
+ */
 #define REGLER_PWN_L_X_MITTEL 125
 #define REGLER_PWN_L_Y_MITTEL 125
 #define REGLER_PWN_R_X_MITTEL 125
 #define REGLER_PWN_R_Y_MITTEL 125
+/** @} */
 
-// STABILZUSTANDSPARAMETERN
+/** \defgroup STABILZUSTANDSPARAMETERN Bewegungsparameter - Stabil Zustand
+ * \brief PWM-Werte des stabilen Zustands für jeden Achse des Joystick
+  * @{
+ */
 #define REGLER_PWN_L_X_STABIL 125
 #define REGLER_PWN_L_Y_STABIL 125
 #define REGLER_PWN_R_X_STABIL 125
 #define REGLER_PWN_R_Y_STABIL 125
+/** @} */
+
 
 //TODO:
 /* Hardware Initializationsparameter */
+/** \defgroup HARWARE_INIT Hardware Initializationsparameter 
+ * \brief Pins der Modulen des MCU vorbereiten
+  * @{
+ */
 #define l_y_pin A0        // Links  Y -- Grün   
 #define l_x_pin A1        // Links  X -- Weiß     -- Mitte: 126
 #define r_x_pin A2        // Rechts X -- Blau     -- Mitte: 127
@@ -49,12 +72,23 @@
 #define r_y_pwm_pin 11    // Rechts Y -- Braun
 
 #define modus_wahl_pin 5  // Status des Kippschalters
+/** @} */
 
 /* Software Initializationsparameter */
-#define PWM_TRANSLATION_VERTICAL_OUTPUT_PIN l_y_pwm_pin // OBEN-UNTEN
-#define PWM_TRANSLATION_HORIZONTAL_OUTPUT_PIN l_x_pwm_pin // VORWÄRTS-RÜCKWÄRTS
-#define PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN r_x_pwm_pin // LINKS-RECHTS
-#define PWM_ROTATION_HORIZONTAL_OUTPUT_PIN r_y_pwm_pin // ABBIEGUNGSWINKEL LINKS-RECHTS
+/* Hardware Initializationsparameter */
+/** \defgroup SOFTWARE_INIT Software Initializationsparameter 
+ * \brief Macro für Software-implementation
+  * @{
+ */
+//! Pins für OBEN-UNTEN Translationsbewegeung
+#define PWM_TRANSLATION_VERTICAL_OUTPUT_PIN l_y_pwm_pin 
+//! Pins für VORWÄRTS-RÜCKWÄRTS Translationsbewegeung
+#define PWM_TRANSLATION_HORIZONTAL_OUTPUT_PIN l_x_pwm_pin 
+//! Pins für LINKS-RECHTS Translationsbewegeung
+#define PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN r_x_pwm_pin 
+//! Pins für ABBIEGUNGSWINKEL LINKS-RECHTS Rotationsbewegeung um vertikalen Achse
+#define PWM_ROTATION_VERTICAL_OUTPUT_PIN r_y_pwm_pin 
+/** @} */
 
 /***********************************************
  *  FUNKTIONSPROTOTYP
