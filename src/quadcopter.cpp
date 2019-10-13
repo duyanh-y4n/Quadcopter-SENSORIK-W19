@@ -52,7 +52,10 @@ void quadcopter_software_init(){
 //TODO
 void quadcopter_links_abbiegen(unsigned int Dauer){
     quadcopter_print("Biegt nach LINKS... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_ROTATION_VERTICAL_LINKS);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -61,7 +64,10 @@ void quadcopter_links_abbiegen(unsigned int Dauer){
 //TODO
 void quadcopter_rechts_abbiegen(unsigned int Dauer){
     quadcopter_println("Biegt nach RECHTS...");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_ROTATION_VERTICAL_RECHTS);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -70,7 +76,10 @@ void quadcopter_rechts_abbiegen(unsigned int Dauer){
 //TODO
 void quadcopter_nach_vorne(unsigned int Dauer){
     quadcopter_print("Fliegt nach VORNE... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_TRANSLATION_HORIZONTAL_OUTPUT_PIN, REGLER_PWM_RECHTS);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -79,7 +88,10 @@ void quadcopter_nach_vorne(unsigned int Dauer){
 //TODO
 void quadcopter_nach_hinten(unsigned int Dauer){
     quadcopter_print("Fliegt nach HINTEN... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_ROTATION_HORIZONTAL_OUTPUT_PIN, REGLER_PWM_HINTEN);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -88,7 +100,10 @@ void quadcopter_nach_hinten(unsigned int Dauer){
 //TODO
 void quadcopter_nach_rechts(unsigned int Dauer){
     quadcopter_print("fliegt nach RECHTS... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN, REGLER_PWM_RECHTS);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -97,7 +112,10 @@ void quadcopter_nach_rechts(unsigned int Dauer){
 //TODO
 void quadcopter_nach_links(unsigned int Dauer){
     quadcopter_print("Fliegt nach LINKS... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN, REGLER_PWM_RECHTS);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -106,7 +124,10 @@ void quadcopter_nach_links(unsigned int Dauer){
 //TODO
 void quadcopter_nach_oben(unsigned int Dauer){
     quadcopter_print("Fliegt nach OBEN... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_OBEN);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -115,7 +136,10 @@ void quadcopter_nach_oben(unsigned int Dauer){
 //TODO
 void quadcopter_nach_unten(unsigned int Dauer){
     quadcopter_print("Fliegt nach UNTEN... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_UNTEN);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -124,7 +148,13 @@ void quadcopter_nach_unten(unsigned int Dauer){
 //TODO
 void quadcopter_aufhalten(unsigned int Dauer){
     quadcopter_print("HALT AUF... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(l_x_pwm_pin, REGLER_PWN_L_X_STABIL);
+    analogWrite(l_y_pwm_pin, REGLER_PWN_L_Y_STABIL);
+    analogWrite(r_x_pwm_pin, REGLER_PWN_R_X_STABIL);
+    analogWrite(r_y_pwm_pin, REGLER_PWN_R_Y_STABIL);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
@@ -133,14 +163,17 @@ void quadcopter_aufhalten(unsigned int Dauer){
 //TODO
 void quadcopter_aufsetzen(unsigned int Dauer){
     quadcopter_print("SETZT AUF... ");
-    quadcopter_verzoegen(Dauer);
+
+    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_UNTEN);
+    quadcopter_verzoegern(Dauer);
+
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
     quadcopter_println(" ms)");
 };
 
 //TODO
-void quadcopter_verzoegen(unsigned int Dauer){
+void quadcopter_verzoegern(unsigned int Dauer){
     delay(Dauer);
 };
 
@@ -175,13 +208,13 @@ void quadcopter_Autobetrieb(){
     quadcopter_nach_oben(500);
     quadcopter_aufhalten(500);
     quadcopter_nach_vorne(500);
-    quadcopter_aufhalten(REGLER_HALTVERZOEGERUNG);
+    quadcopter_aufhalten(REGLER_HALTEDAUER);
     quadcopter_nach_hinten(500);
-    quadcopter_aufhalten(REGLER_HALTVERZOEGERUNG);
+    quadcopter_aufhalten(REGLER_HALTEDAUER);
     quadcopter_nach_rechts(500);
-    quadcopter_aufhalten(REGLER_HALTVERZOEGERUNG);
+    quadcopter_aufhalten(REGLER_HALTEDAUER);
     quadcopter_nach_links(500);
-    quadcopter_aufhalten(REGLER_HALTVERZOEGERUNG);
+    quadcopter_aufhalten(REGLER_HALTEDAUER);
     quadcopter_aufsetzen(500);
 
     // Debug Monitor Anzeige
