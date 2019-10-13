@@ -16,7 +16,8 @@
 /** @} */
 
 /* Betriebsparameter*/
-/** @defgroup TRANSLATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Translation
+/** @ingroup GRUNDFUNKTIONEN
+ * @defgroup TRANSLATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Translation
  * @brief PWM-Werte der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
   * @{
  */
@@ -30,7 +31,8 @@
 #define REGLER_PWM_HALT 125 //! unused
 /** @} */
 
-/** @defgroup ROTATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Rotation
+/** @ingroup GRUNDFUNKTIONEN
+ * @defgroup ROTATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Rotation
  * @brief PWM-Werte der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
   * @{
  */
@@ -40,7 +42,8 @@
 #define REGLER_PWM_ROTATION_HORIZONTAL_LINKS 125
 /** @} */
 
-/** @defgroup STARTZUSTANDSPARAMETERN Bewegungsparameter - Start Zustand
+/** @ingroup GRUNDFUNKTIONEN
+ * @defgroup STARTZUSTANDSPARAMETERN Bewegungsparameter - Start Zustand
  * @brief PWM-Werte des Startzustands für jeden Achse des Joystick
   * @{
  */
@@ -50,7 +53,8 @@
 #define REGLER_PWN_R_Y_MITTEL 130
 /** @} */
 
-/** @defgroup STABILZUSTANDSPARAMETERN Bewegungsparameter - Stabil Zustand
+/** @ingroup GRUNDFUNKTIONEN
+ * @defgroup STABILZUSTANDSPARAMETERN Bewegungsparameter - Stabil Zustand
  * @brief PWM-Werte des stabilen Zustands für jeden Achse des Joystick
   * @{
  */
@@ -112,16 +116,69 @@ void quadcopter_software_init();
  * @brief Funktionen zur Steuerung der Bewegung des Quadcopter
   * @{
  */
+/**
+ * @brief Rotationsbewegung um vertikalen Achse (Gierung)
+ * 
+ * @param Dauer Dauer der Bewegung in ms 
+ */
 void quadcopter_links_abbiegen(unsigned int Dauer);
+
+/**
+ * @brief Rotationsbewegung um vertikalen Achse (Gierung)
+ * 
+ * @param Dauer Dauer der Bewegung in ms 
+ */
 void quadcopter_rechts_abbiegen(unsigned int Dauer);
 void quadcopter_nach_vorne(unsigned int Dauer);
 void quadcopter_nach_hinten(unsigned int Dauer);
+
+/**
+ * @brief Translationsbewegung entlang horizontalen Achse (Rollen und Bewegen)
+ * 
+ * @param Dauer Dauer der Bewegung in ms 
+ */
 void quadcopter_nach_rechts(unsigned int Dauer);
+
+/**
+ * @brief Translationsbewegung entlang horizontalen Achse (Rollen und Bewegen)
+ * 
+ * @param Dauer Dauer der Bewegung in ms 
+ */
 void quadcopter_nach_links(unsigned int Dauer);
+
+/**
+ * @brief Translationsbewegung entlang vertikalen Achse 
+ * 
+ * @param Dauer Dauer der Bewegung in ms 
+ */
 void quadcopter_nach_oben(unsigned int Dauer);
+
+/**
+ * @brief Translationsbewegung entlang vertikalen Achse
+ * 
+ * @param Dauer Dauer der Bewegung in ms 
+ */
 void quadcopter_nach_unten(unsigned int Dauer);
+
+/**
+ * @brief in der Luft stabil liegen
+ * 
+ * @param Dauer Dauer des stabilen Zustands in ms 
+ */
 void quadcopter_aufhalten(unsigned int Dauer);
+
+/**
+ * @brief langam runter fahren und aufsetzen
+ * 
+ * @param Dauer max. Dauer der Bewegung in ms 
+ */
 void quadcopter_aufsetzen(unsigned int Dauer);
+
+/**
+ * @brief alle Prozess zeitlich verzögern
+ * 
+ * @param Dauer Dauer der Verzögerung in ms 
+ */
 void quadcopter_verzoegern(unsigned int Dauer);
 /** @} */
 
@@ -129,9 +186,31 @@ void quadcopter_verzoegern(unsigned int Dauer);
  * @brief Ultilities zum Deguggen des MCU per Serial-Monitor
   * @{
  */
+
+/**
+ * @brief Debug Serialmonitor aktivieren 
+ * 
+ * @param baudrate Serialbaudrate
+ */
 void quadcopter_Debug_Monitor_aktivieren(unsigned long baudrate);
+
+/**
+ * @brief Debug Serialmonitor deaktivieren 
+ * 
+ * @param baudrate Serialbaudrate
+ */
 void quadcopter_Debug_Monitor_deaktivieren();
+
+/**
+ * @brief Ausgabe auf Debugmonitor
+ * 
+ */
 #define quadcopter_print(input) if(DEBUG_MONITOR_AKTIVIEREN) Serial.print(input);
+
+/**
+ * @brief Ausgabe auf Debugmonitor
+ * 
+ */
 #define quadcopter_println(input) if(DEBUG_MONITOR_AKTIVIEREN) Serial.println(input);
 /** @} */
 
@@ -139,7 +218,23 @@ void quadcopter_Debug_Monitor_deaktivieren();
  * @brief Autobetriebsmodus und Manuellbetriebsmodus
   * @{
  */
+
+/**
+ * @brief Autobetrieb des Quadcopter
+ * 
+ */
 void quadcopter_Autobetrieb();
+
+/**
+ * @brief Manuellbetrieb des Quadcopter
+ * 
+ */
 void quadcopter_Manuellbetrieb();
+
+/**
+ * @brief software zwingende Modusänderung (zwischen auto und manuell. Betrieb)
+ * 
+ * @param Modus 
+ */
 void quadcopter_Modus_veraendern(bool Modus);
 /** @} */

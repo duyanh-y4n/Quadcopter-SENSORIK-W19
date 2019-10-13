@@ -1,3 +1,20 @@
+/*! \mainpage QUADCOPTER SUPER COOL
+ *
+ * \section intro_sec Introduction
+ *
+ * This is the introduction.
+ *
+ * \section install_sec Installation
+ *
+ * \subsection step1 Step 1: Opening the box
+ * 
+ * \section help_sec Help
+ * 
+ * <a href="graph_legend.html">Graphishe Legende der Diagrammen</a>
+ *
+ * etc...
+ */
+
 #include <Arduino.h>
 #include "quadcopter.h"
 
