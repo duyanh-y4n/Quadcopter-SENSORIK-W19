@@ -6,10 +6,6 @@
 /* Modus Macros*/
 #define MODUS_AUTO true
 #define MODUS_MANUEL false
-extern bool QUADCOPTER_MODUS;
-
-/* Debug Output Schalter*/
-extern bool DEBUG_MONITOR_AKTIVIEREN;
 
 /* Betriebsparameter*/
 #define REGLER_HALTVERZOEGERUNG 2000
@@ -34,22 +30,6 @@ extern bool DEBUG_MONITOR_AKTIVIEREN;
 #define r_y_pwm_pin 11    // Rechts Y -- Braun
 
 #define modus_wahl_pin 5  // Status des Kippschalters
-
-extern unsigned int joystick_l_x_pos;
-extern unsigned int joystick_l_y_pos;
-extern unsigned int joystick_r_x_pos;
-extern unsigned int joystick_r_y_pos;
-
-extern float l_x_tastgrad;
-extern float l_y_tastgrad;
-extern float r_x_tastgrad;
-extern float r_y_tastgrad;
-
-extern unsigned int l_x_pwm_wert;
-extern unsigned int l_y_pwm_wert;
-extern unsigned int r_x_pwm_wert;
-extern unsigned int r_y_pwm_wert;
-
 
 /* Software Initializationsparameter */
 
