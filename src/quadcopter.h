@@ -23,6 +23,33 @@ extern bool DEBUG_MONITOR_AKTIVIEREN;
 
 //TODO:
 /* Hardware Initializationsparameter */
+#define l_y_pin A0        // Links  Y -- Grün   
+#define l_x_pin A1        // Links  X -- Weiß     -- Mitte: 126
+#define r_x_pin A2        // Rechts X -- Blau     -- Mitte: 127
+#define r_y_pin A3        // Rechts Y -- Braun    -- Mitte: 130
+
+#define l_y_pwm_pin 3     // Links  Y -- Grün
+#define l_x_pwm_pin 9     // Links  X -- Weiß
+#define r_x_pwm_pin 10    // Rechts     X -- Blau
+#define r_y_pwm_pin 11    // Rechts Y -- Braun
+
+#define modus_wahl_pin 5  // Status des Kippschalters
+
+extern unsigned int joystick_l_x_pos;
+extern unsigned int joystick_l_y_pos;
+extern unsigned int joystick_r_x_pos;
+extern unsigned int joystick_r_y_pos;
+
+extern float l_x_tastgrad;
+extern float l_y_tastgrad;
+extern float r_x_tastgrad;
+extern float r_y_tastgrad;
+
+extern unsigned int l_x_pwm_wert;
+extern unsigned int l_y_pwm_wert;
+extern unsigned int r_x_pwm_wert;
+extern unsigned int r_y_pwm_wert;
+
 
 /* Software Initializationsparameter */
 

@@ -2,7 +2,30 @@
 
 //TODO
 void quadcopter_hardware_init(){
-    
+    pinMode(modus_wahl_pin, INPUT_PULLUP);
+    pinMode(l_x_pwm_pin, OUTPUT);
+    pinMode(l_y_pwm_pin, OUTPUT);
+    pinMode(r_x_pwm_pin, OUTPUT);
+    pinMode(r_y_pwm_pin, OUTPUT);
+};
+
+void quadcopter_software_init(){
+    QUADCOPTER_MODUS = MODUS_MANUEL;
+
+    unsigned int joystick_l_x_pos = 0;
+    unsigned int joystick_l_y_pos = 0;
+    unsigned int joystick_r_x_pos = 0;
+    unsigned int joystick_r_y_pos = 0;
+
+    float l_x_tastgrad = 0.0;
+    float l_y_tastgrad = 0.0;
+    float r_x_tastgrad = 0.0;
+    float r_y_tastgrad = 0.0;
+
+    unsigned int l_x_pwm_wert = 0;
+    unsigned int l_y_pwm_wert = 0;
+    unsigned int r_x_pwm_wert = 0;
+    unsigned int r_y_pwm_wert = 0;  
 };
 
 //TODO
