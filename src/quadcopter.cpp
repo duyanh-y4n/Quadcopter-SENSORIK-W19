@@ -93,7 +93,7 @@ void quadcopter_nach_hinten(unsigned int Dauer){
     quadcopter_print("Fliegt nach HINTEN... ");
 
     // Output Analogsignal zur RCU
-    analogWrite(PWM_ROTATION_HORIZONTAL_OUTPUT_PIN, REGLER_PWM_HINTEN);
+    analogWrite(PWM_ROTATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_HINTEN);
     quadcopter_verzoegern(Dauer);
 
     quadcopter_print("Fertig (nach ");
