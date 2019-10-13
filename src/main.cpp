@@ -20,10 +20,11 @@ void loop() {
     // quadcopter_nach_hinten(500);
     // quadcopter_nach_links(500);
     // quadcopter_nach_rechts(500);
-    // quadcopter_aufhalten(1000);
-    // quadcopter_aufsetzen(500);
+    quadcopter_aufhalten(1000);
+    quadcopter_aufsetzen(500);
     // quadcopter_links_abbiegen(500);
     // quadcopter_rechts_abbiegen(500);
+    delay(2000);
 
   } else
   {

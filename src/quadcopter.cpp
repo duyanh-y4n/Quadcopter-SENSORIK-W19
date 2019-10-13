@@ -29,6 +29,10 @@ void quadcopter_hardware_init(){
     analogReference(EXTERNAL);
 };
 
+/**
+ * @brief Software initialization: Variablen mit Standardwerte initialisieren
+ * @addtogroup SOFTWARE_INIT
+ */
 void quadcopter_software_init(){
     DEBUG_MONITOR_AKTIVIEREN = false;
     QUADCOPTER_MODUS = MODUS_MANUEL;
@@ -133,7 +137,10 @@ void quadcopter_nach_oben(unsigned int Dauer){
 
     // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_OBEN);
-    quadcopter_verzoegern(Dauer);
+    // quadcopter_verzoegern(Dauer/2);
+    // analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWN_L_Y_STABIL);
+    quadcopter_verzoegern(Dauer/2);
+    
 
     quadcopter_print("Fertig (nach ");
     quadcopter_print(Dauer);
@@ -158,10 +165,10 @@ void quadcopter_aufhalten(unsigned int Dauer){
     quadcopter_print("HALT AUF... ");
 
     // Output Analogsignal zur RCU
-    analogWrite(l_x_pwm_pin, REGLER_PWN_L_X_STABIL);
+    analogWrite(l_x_pwm_pin, REGLER_PWN_L_X_MITTEL);
     analogWrite(l_y_pwm_pin, REGLER_PWN_L_Y_STABIL);
-    analogWrite(r_x_pwm_pin, REGLER_PWN_R_X_STABIL);
-    analogWrite(r_y_pwm_pin, REGLER_PWN_R_Y_STABIL);
+    analogWrite(r_x_pwm_pin, REGLER_PWN_R_X_MITTEL);
+    analogWrite(r_y_pwm_pin, REGLER_PWN_R_Y_MITTEL);
     quadcopter_verzoegern(Dauer);
 
     quadcopter_print("Fertig (nach ");
