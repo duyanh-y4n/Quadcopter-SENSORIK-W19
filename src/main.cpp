@@ -3,14 +3,28 @@
  * \section intro_sec EINLEITUNG
  * <img src="../images/quadcopter.jpg">
  * 
- * This is the introduction.
+ * Projekt im Fach Sensorik für Autonome Systeme <br>
+ * Wintersemester 2019/20 <br>
+ * Betreuer: Prof. Dr.-Ing. Jörg Dahlkemper Prof. Dr. Dahlkemper
+ * 
+ * \section team_sec TEAM-MITGLEDERN
+ * Pham Duy Anh <br>
+ * Karl Gritz <br>
+ * Dmitrij Gileles <br>
  *
+ * \section increment_sec PROJECTSINKREMENTE
+ * <b>Inkrement 1: Mikrocontroller-gesteuerte Fernbedienung des Quadrocopters <br></b>
+ * <b>Inkrement 2: Quadrocoptersteuerung über Raspberry Pi <br></b>
+ * <b>Inkrement 3: Robuste Lagesteuerung durch Sensordatenfusion<br></b>
+ * <b>Inkrement 4: Betriebszustandsmonitoring<br></b>
+ * 
  * \section install_sec INSTALLATION
+ * Dieser Projekt wird mithilfe der folgenden Werkzeugen entwickelt:
  *
  * \subsection dev_env Entwicklungsumgebung
- * Platform: Arduino <br>
- * IDE: Visual Studio Code mit Platform.io Plugin <br>
- * Dokumentationswerkzeug: Doxygen <br>
+ * <b>Platform</b>: Arduino <br>
+ * <b>IDE</b>: Visual Studio Code mit Platform.io Plugin <br>
+ * <b>Dokumentationswerkzeug</b>: Doxygen <br>
  * \section help_sec Hilfe
  * 
  * <a href="graph_legend.html">Graphishe Legende der Diagrammen</a>
@@ -20,27 +34,6 @@
 
 #include <Arduino.h>
 #include "quadcopter.h"
-
-unsigned short sequenz_nr = 0;
-
-
-unsigned int _joystick_l_x_pos;
-unsigned int _joystick_l_y_pos;
-unsigned int _joystick_r_x_pos;
-unsigned int _joystick_r_y_pos;
-
-float _l_x_tastgrad;
-float _l_y_tastgrad;
-float _r_x_tastgrad;
-float _r_y_tastgrad;
-
-unsigned int _l_x_pwm_wert;
-unsigned int _l_y_pwm_wert;
-unsigned int _r_x_pwm_wert;
-unsigned int _r_y_pwm_wert;
-
-
-
 
 bool QUADCOPTER_MODUS;
 bool DEBUG_MONITOR_AKTIVIEREN;

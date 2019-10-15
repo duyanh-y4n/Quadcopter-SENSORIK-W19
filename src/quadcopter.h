@@ -7,7 +7,7 @@
 
 /* Modus Macros*/
 /**
- * @brief Macro für Betriebsmodus
+ * @brief 
  * @addtogroup HAUPTBETRIEB 
  * @{
  */
@@ -238,25 +238,31 @@ void quadcopter_Debug_Monitor_deaktivieren();
 /** @} */
 
 /** @defgroup HAUPTBETRIEB Hauptbetrieb des Quadcopters
- * @brief Autobetriebsmodus und Manuellbetriebsmodus
+ * @brief Autobetriebsmodus und Manuellbetriebsmodus <br>
+ * <b>Flussdiagram des Hauptbetrieb: </b><br>
+ * <img src="../images/Flussdiagramm-arduino.png">
   * @{
  */
 
 /**
- * @brief Autobetrieb des Quadcopters (als FSM implementiert)
- * 
+ * @brief Autobetrieb des Quadcopters (als FSM implementiert) <br>
+ * <b>Flussdiagram:</b> <br>
+ * <img src="../images/Autobetrieb.png"> <br>
+ * <br><b>FSM-Diagram:</b> <br>
+ * <img src="../images/FSM-Autobetrieb.png"> <br> 
  */
 void quadcopter_Autobetrieb();
 
 /**
- * @brief Manuellbetrieb des Quadcopters
+ * @brief Manuellbetrieb des Quadcopters <br>
+ * <b>Flussdiagram:</b> <br>
+ * <img src="../images/Manuellbetrieb.png">
  * 
  */
 void quadcopter_Manuellbetrieb();
 
 /**
  * @brief software zwingende Modusänderung (zwischen auto und manuell. Betrieb)
- * 
  * @param Modus 
  */
 void quadcopter_Modus_veraendern(bool Modus);
