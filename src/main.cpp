@@ -1,14 +1,17 @@
 /*! \mainpage QUADCOPTER SUPER COOL
  *
- * \section intro_sec Introduction
- *
+ * \section intro_sec EINLEITUNG
+ * <img src="../images/quadcopter.jpg">
+ * 
  * This is the introduction.
  *
- * \section install_sec Installation
+ * \section install_sec INSTALLATION
  *
- * \subsection step1 Step 1: Opening the box
- * 
- * \section help_sec Help
+ * \subsection dev_env Entwicklungsumgebung
+ * Platform: Arduino <br>
+ * IDE: Visual Studio Code mit Platform.io Plugin <br>
+ * Dokumentationswerkzeug: Doxygen <br>
+ * \section help_sec Hilfe
  * 
  * <a href="graph_legend.html">Graphishe Legende der Diagrammen</a>
  *
