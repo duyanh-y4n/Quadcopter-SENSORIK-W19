@@ -16,13 +16,23 @@
 /** @} */
 
 /* Betriebsparameter*/
+
 /** @ingroup GRUNDFUNKTIONEN
- * @defgroup TRANSLATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Translation
- * @brief PWM-Werte (im Bereich [0:255]) der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
+ * @defgroup ALLG_PARAMETERN Bewegungsparameter - Zeitvariablen und Bewegungsauslenkung
+ * @brief Zeitvaiablen und Bewegungsauslenkung beim Autobetrieb
   * @{
  */
-#define REGLER_HALTEDAUER 2000
-#define REGLER_BEWEGUNGSDAUER 200
+#define REGLER_HALTEDAUER 500
+#define REGLER_BREMSDAUER 100
+#define REGLER_AUSLENKUNGSDAUER 400
+#define REGLER_AUSLENKUNG 60
+/** @} */
+
+/** @ingroup GRUNDFUNKTIONEN
+ * @defgroup TRANSLATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Translation
+ * @brief PWM-Werte (im Bereich [0:255]) der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joysticks
+  * @{
+ */
 #define REGLER_PWM_OBEN 130
 #define REGLER_PWM_UNTEN 110
 #define REGLER_PWM_RECHTS 132
@@ -34,7 +44,7 @@
 
 /** @ingroup GRUNDFUNKTIONEN
  * @defgroup ROTATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Rotation
- * @brief PWM-Werte (im Bereich [0:255]) der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
+ * @brief PWM-Werte (im Bereich [0:255]) der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joysticks
   * @{
  */
 #define REGLER_PWM_ROTATION_VERTICAL_RECHTS 130
@@ -45,7 +55,7 @@
 
 /** @ingroup GRUNDFUNKTIONEN
  * @defgroup STARTZUSTANDSPARAMETERN Bewegungsparameter - Start Zustand
- * @brief PWM-Werte (im Bereich [0:255]) des Startzustands für jeden Achse des Joystick
+ * @brief PWM-Werte (im Bereich [0:255]) des Startzustands für jeden Achse des Joysticks
   * @{
  */
 #define REGLER_PWN_L_X_MITTEL 126
@@ -56,7 +66,7 @@
 
 /** @ingroup GRUNDFUNKTIONEN
  * @defgroup STABILZUSTANDSPARAMETERN Bewegungsparameter - Stabil Zustand
- * @brief PWM-Werte (im Bereich [0:255]) des stabilen Zustands für jeden Achse des Joystick
+ * @brief PWM-Werte (im Bereich [0:255]) des stabilen Zustands für jeden Achse des Joysticks
   * @{
  */
 #define REGLER_PWN_L_X_STABIL 125
@@ -68,7 +78,7 @@
 
 //TODO:
 /** @defgroup HARDWARE_INIT Hardware Initialization
- * @brief Pins der Modulen des MCU vorbereiten
+ * @brief Pins der Modulen des MCUs vorbereiten
   * @{
  */
 #define JOYSTICK_LINKS_Y_PIN A0        // Links  Y -- Grün   
@@ -114,7 +124,7 @@ void quadcopter_hardware_init();
 void quadcopter_software_init();
 
 /** @defgroup GRUNDFUNKTIONEN Grundfunktionen des Autobetriebs
- * @brief Funktionen zur Steuerung der Bewegung des Quadcopter
+ * @brief Funktionen zur Steuerung der Bewegung des Quadcopters
   * @{
  */
 /**
@@ -196,7 +206,7 @@ void quadcopter_verzoegern(unsigned int Dauer);
 /** @} */
 
 /** @defgroup DEBUG_MONITOR Debug Monitor
- * @brief Ultilities zum Deguggen des MCU per Serial-Monitor
+ * @brief Ultilities zum Deguggen des MCUs per Serial-Monitor
   * @{
  */
 
@@ -227,19 +237,19 @@ void quadcopter_Debug_Monitor_deaktivieren();
 #define quadcopter_println(input) if(DEBUG_MONITOR_AKTIVIEREN) Serial.println(input);
 /** @} */
 
-/** @defgroup HAUPTBETRIEB Hauptbetrieb des Quadcopter
+/** @defgroup HAUPTBETRIEB Hauptbetrieb des Quadcopters
  * @brief Autobetriebsmodus und Manuellbetriebsmodus
   * @{
  */
 
 /**
- * @brief Autobetrieb des Quadcopter
+ * @brief Autobetrieb des Quadcopters (als FSM implementiert)
  * 
  */
 void quadcopter_Autobetrieb();
 
 /**
- * @brief Manuellbetrieb des Quadcopter
+ * @brief Manuellbetrieb des Quadcopters
  * 
  */
 void quadcopter_Manuellbetrieb();

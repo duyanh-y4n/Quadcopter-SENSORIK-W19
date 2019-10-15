@@ -15,9 +15,23 @@ unsigned int l_y_pwm_wert;
 unsigned int r_x_pwm_wert;
 unsigned int r_y_pwm_wert;
 
-bool QUADCOPTER_MODUS;
+extern bool QUADCOPTER_MODUS;
 
-bool DEBUG_MONITOR_AKTIVIEREN;
+extern bool DEBUG_MONITOR_AKTIVIEREN;
+
+enum richtung_zustand { standart, vor, vor_brems, vor_halt, vor_halt_nach, 
+                                  zurueck, zurueck_brems, zurueck_halt, zurueck_halt_nach,
+                                  rechts, rechts_brems, rechts_halt, rechts_halt_nach, 
+                                  links, links_brems, links_halt, links_halt_nach};
+richtung_zustand richtung;
+richtung_zustand richtung_next;
+
+unsigned short auslenkung = 60;
+unsigned int auslenkung_dauer = 400;
+unsigned int halte_dauer = 500;
+unsigned int brems_dauer = 100;
+
+unsigned long letzte_umschalt = 0;
 
 //TODO
 void quadcopter_hardware_init(){
@@ -51,6 +65,8 @@ void quadcopter_software_init(){
     l_y_pwm_wert = 0;
     r_x_pwm_wert = 0;
     r_y_pwm_wert = 0;  
+
+    richtung = standart;
 };
 
 //TODO
@@ -208,8 +224,6 @@ void quadcopter_Debug_Monitor_deaktivieren(){
 
 //TODO
 void quadcopter_Autobetrieb(){
-    QUADCOPTER_MODUS = MODUS_AUTO;
-
     // Debug Monitor Anzeige
     quadcopter_println("__________________________________");
     quadcopter_println("Automodus start");
@@ -218,16 +232,189 @@ void quadcopter_Autobetrieb(){
     // LED Betriebsmodusanzeiger
     // digitalWrite(LED_BUILTIN, HIGH);
 
-    // Autobetriebssequenz
-    quadcopter_nach_vorne(500);
-    quadcopter_aufhalten(REGLER_HALTEDAUER);
-    quadcopter_nach_hinten(500);
-    quadcopter_aufhalten(REGLER_HALTEDAUER);
-    quadcopter_nach_rechts(500);
-    quadcopter_aufhalten(REGLER_HALTEDAUER);
-    quadcopter_nach_links(500);
-    quadcopter_aufhalten(REGLER_HALTEDAUER);
-    quadcopter_aufsetzen(500);
+   // Joystick Werte ablesen
+    joystick_l_x_pos = analogRead(JOYSTICK_LINKS_X_PIN);
+    joystick_l_y_pos = analogRead(JOYSTICK_LINKS_Y_PIN);
+
+    // Joystick Werte im Bereich [1,255] quantisieren
+    l_x_pwm_wert = map(joystick_l_x_pos, 0, 1023, 0, 255);
+    l_y_pwm_wert = map(joystick_l_y_pos, 0, 1023, 0, 255);
+
+    richtung_next = richtung;
+
+// ============================= ANFANG SWITCH CASE ======================================
+
+    switch (richtung)
+    {
+
+    case standart:
+        r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+        r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+        letzte_umschalt = millis();
+        richtung_next = vor;
+    break;
+// ============================= VOR ======================================
+
+    case vor: // nach vorne
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL - REGLER_AUSLENKUNG;
+      if(millis()-letzte_umschalt > REGLER_AUSLENKUNGSDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = vor_halt;
+      }
+    break;
+
+    case vor_halt:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_HALTEDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = vor_brems;
+      }
+    break;
+
+    case vor_brems:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL + REGLER_AUSLENKUNG;
+      if(millis()-letzte_umschalt > REGLER_BREMSDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = vor_halt_nach;
+      }
+    break;
+
+    case vor_halt_nach:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_HALTEDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = zurueck;
+      }
+    break;
+
+// ============================= ZURUECK ======================================    
+
+    case zurueck: // nach vorne
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL + REGLER_AUSLENKUNG;
+      if(millis()-letzte_umschalt > REGLER_AUSLENKUNGSDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = zurueck_halt;
+      }
+    break;
+
+    case zurueck_halt:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_HALTEDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = zurueck_brems;
+      }
+    break;
+
+    case zurueck_brems:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL - REGLER_AUSLENKUNG;
+      if(millis()-letzte_umschalt > REGLER_BREMSDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = zurueck_halt_nach;
+      }
+    break;
+
+    case zurueck_halt_nach:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_HALTEDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = rechts;
+      }
+    break;
+
+// ============================= RECHTS ======================================    
+
+    case rechts: // nach vorne
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL - REGLER_AUSLENKUNG;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_AUSLENKUNGSDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = rechts_halt;
+      }
+    break;
+
+    case rechts_halt:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_HALTEDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = rechts_brems;
+      }
+    break;
+
+    case rechts_brems:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL + REGLER_AUSLENKUNG;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_BREMSDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = rechts_halt_nach;
+      }
+    break;
+
+    case rechts_halt_nach:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_HALTEDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = links;
+      }
+    break;
+
+// ============================= LINKS ======================================
+
+    case links: // 
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL + REGLER_AUSLENKUNG;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_AUSLENKUNGSDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = links_halt;
+      }
+    break;
+
+    case links_halt:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_HALTEDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = links_brems;
+      }
+    break;
+
+    case links_brems:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL - REGLER_AUSLENKUNG;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_BREMSDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = links_halt_nach;
+      }
+    break;
+
+    case links_halt_nach:
+      r_x_pwm_wert = REGLER_PWN_R_X_MITTEL;
+      r_y_pwm_wert = REGLER_PWN_R_Y_MITTEL;
+      if(millis()-letzte_umschalt > REGLER_HALTEDAUER) {
+        letzte_umschalt = millis();
+        richtung_next = standart;
+      }
+    break;
+
+    default:
+      break;
+    }
+
+// ============================= ENDE SWITCH CASE ======================================
+    analogWrite(JOYSTICK_LINKS_X_PWM_PIN, l_x_pwm_wert);
+    analogWrite(JOYSTICK_LINKS_Y_PWM_PIN, l_y_pwm_wert);
+    analogWrite(JOYSTICK_RECHTS_X_PWM_PIN, r_x_pwm_wert);
+    analogWrite(JOYSTICK_RECHTS_Y_PWM_PIN, r_y_pwm_wert);
+    richtung = richtung_next; 
 
     // Debug Monitor Anzeige
     quadcopter_println("----------------------------------");
@@ -237,8 +424,6 @@ void quadcopter_Autobetrieb(){
 
 //TODO
 void quadcopter_Manuellbetrieb(){
-    QUADCOPTER_MODUS = MODUS_MANUEL;
-
     // Debug Monitor Anzeige
     quadcopter_println("__________________________________");
     quadcopter_println("Manuellmodus start");
@@ -270,6 +455,8 @@ void quadcopter_Manuellbetrieb(){
     analogWrite(JOYSTICK_LINKS_Y_PWM_PIN, l_y_pwm_wert);
     analogWrite(JOYSTICK_RECHTS_X_PWM_PIN, r_x_pwm_wert);
     analogWrite(JOYSTICK_RECHTS_Y_PWM_PIN, r_y_pwm_wert);
+
+    richtung = standart;
 
     // Debug Monitor Anzeige
     quadcopter_println( "Links  X  "      + String(l_x_pwm_wert) 
