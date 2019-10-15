@@ -137,8 +137,6 @@ void quadcopter_nach_oben(unsigned int Dauer){
 
     // Output Analogsignal zur RCU
     analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_OBEN);
-    // quadcopter_verzoegern(Dauer/2);
-    // analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWN_L_Y_STABIL);
     quadcopter_verzoegern(Dauer/2);
     
 
@@ -218,12 +216,9 @@ void quadcopter_Autobetrieb(){
     quadcopter_println("----------------------------------");
 
     // LED Betriebsmodusanzeiger
-    digitalWrite(LED_BUILTIN, HIGH);
+    // digitalWrite(LED_BUILTIN, HIGH);
 
     // Autobetriebssequenz
-    quadcopter_aufsetzen(500);
-    quadcopter_nach_oben(500);
-    quadcopter_aufhalten(500);
     quadcopter_nach_vorne(500);
     quadcopter_aufhalten(REGLER_HALTEDAUER);
     quadcopter_nach_hinten(500);
@@ -250,7 +245,7 @@ void quadcopter_Manuellbetrieb(){
     quadcopter_println("----------------------------------");
 
     // LED Betriebsmodusanzeiger
-    digitalWrite(LED_BUILTIN, LOW);
+    // digitalWrite(LED_BUILTIN, LOW);
 
     // Joystick Werte ablesen
     joystick_l_x_pos = analogRead(JOYSTICK_LINKS_X_PIN);
