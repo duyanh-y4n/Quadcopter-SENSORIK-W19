@@ -124,80 +124,81 @@ void quadcopter_hardware_init();
 void quadcopter_software_init();
 
 /** @defgroup GRUNDFUNKTIONEN Grundfunktionen des Autobetriebs
- * @brief Funktionen zur Steuerung der Bewegung des Quadcopters
+ * @brief Funktionen zur Steuerung der Bewegung des Quadrocopters
   * @{
  */
-/**
+
+/*
  * @brief Rotationsbewegung um vertikalen Achse (Gierung)
  * 
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_links_abbiegen(unsigned int Dauer);
 
-/**
+/*
  * @brief Rotationsbewegung um vertikalen Achse (Gierung)
  * 
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_rechts_abbiegen(unsigned int Dauer);
 
-/**
+/*
  * @brief Translationsbewegung nach vorne (Nicken)
  * 
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_nach_vorne(unsigned int Dauer);
 
-/**
+/*
  * @brief Translationsbewegung nach hinten (Nicken)
  * 
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_nach_hinten(unsigned int Dauer);
 
-/**
+/*
  * @brief Translationsbewegung entlang horizontalen Achse (Rollen und Bewegen)
  * 
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_nach_rechts(unsigned int Dauer);
 
-/**
+/*
  * @brief Translationsbewegung entlang horizontalen Achse (Rollen und Bewegen)
  * 
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_nach_links(unsigned int Dauer);
 
-/**
+/*
  * @brief Translationsbewegung entlang vertikalen Achse 
  * 
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_nach_oben(unsigned int Dauer);
 
-/**
+/*
  * @brief Translationsbewegung entlang vertikalen Achse
  * 
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_nach_unten(unsigned int Dauer);
 
-/**
+/*
  * @brief in der Luft stabil liegen
  * 
  * @param Dauer Dauer des stabilen Zustands in ms 
  */
 void quadcopter_aufhalten(unsigned int Dauer);
 
-/**
+/*
  * @brief langam runter fahren und aufsetzen
  * 
  * @param Dauer max. Dauer der Bewegung in ms 
  */
 void quadcopter_aufsetzen(unsigned int Dauer);
 
-/**
+/*
  * @brief alle Prozess zeitlich verzögern
  * 
  * @param Dauer Dauer der Verzögerung in ms 
@@ -237,7 +238,7 @@ void quadcopter_Debug_Monitor_deaktivieren();
 #define quadcopter_println(input) if(DEBUG_MONITOR_AKTIVIEREN) Serial.println(input);
 /** @} */
 
-/** @defgroup HAUPTBETRIEB Hauptbetrieb des Quadcopters
+/** @defgroup HAUPTBETRIEB Hauptbetrieb des Quadrocopters
  * @brief Autobetriebsmodus und Manuellbetriebsmodus <br>
  * <b>Flussdiagram des Hauptbetrieb: </b><br>
  * <img src="../images/Flussdiagramm-arduino.png">
@@ -245,23 +246,23 @@ void quadcopter_Debug_Monitor_deaktivieren();
  */
 
 /**
- * @brief Autobetrieb des Quadcopters (als FSM implementiert) <br>
+ * @brief Autobetrieb des Quadrocopters (als FSM implementiert) <br>
  * <b>Flussdiagram:</b> <br>
  * <img src="../images/Autobetrieb.png"> <br>
  * <br><b>FSM-Diagram:</b> <br>
- * <img src="../images/FSM-Autobetrieb.png"> <br> 
+ * <img src="../images/FSM-Autobetrieb.png" style="width:100%"> <br> 
  */
 void quadcopter_Autobetrieb();
 
 /**
- * @brief Manuellbetrieb des Quadcopters <br>
+ * @brief Manuellbetrieb des Quadrocopters <br>
  * <b>Flussdiagram:</b> <br>
  * <img src="../images/Manuellbetrieb.png">
  * 
  */
 void quadcopter_Manuellbetrieb();
 
-/**
+/*
  * @brief software zwingende Modusänderung (zwischen auto und manuell. Betrieb)
  * @param Modus 
  */

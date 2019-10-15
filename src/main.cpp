@@ -14,6 +14,10 @@
  *
  * \section increment_sec PROJECTSINKREMENTE
  * <b>Inkrement 1: Mikrocontroller-gesteuerte Fernbedienung des Quadrocopters <br></b>
+ * Dokumentation über die Hauptbetrieb des Quadrocopters sind
+ * <a href="group___h_a_u_p_t_b_e_t_r_i_e_b.html">hier </a>
+ * zu sehen.<br>
+ * Stand: 15. Oktober 2019<br><br>
  * <b>Inkrement 2: Quadrocoptersteuerung über Raspberry Pi <br></b>
  * <b>Inkrement 3: Robuste Lagesteuerung durch Sensordatenfusion<br></b>
  * <b>Inkrement 4: Betriebszustandsmonitoring<br></b>
