@@ -21,11 +21,11 @@ bool DEBUG_MONITOR_AKTIVIEREN;
 
 //TODO
 void quadcopter_hardware_init(){
-    pinMode(modus_wahl_pin, INPUT_PULLUP);
-    pinMode(l_x_pwm_pin, OUTPUT);
-    pinMode(l_y_pwm_pin, OUTPUT);
-    pinMode(r_x_pwm_pin, OUTPUT);
-    pinMode(r_y_pwm_pin, OUTPUT);
+    pinMode(MODUS_WAHL_PIN, INPUT_PULLUP);
+    pinMode(JOYSTICK_LINKS_X_PWM_PIN, OUTPUT);
+    pinMode(JOYSTICK_LINKS_Y_PWM_PIN, OUTPUT);
+    pinMode(JOYSTICK_RECHTS_X_PWM_PIN, OUTPUT);
+    pinMode(JOYSTICK_RECHTS_Y_PWM_PIN, OUTPUT);
     analogReference(EXTERNAL);
 };
 
@@ -165,10 +165,10 @@ void quadcopter_aufhalten(unsigned int Dauer){
     quadcopter_print("HALT AUF... ");
 
     // Output Analogsignal zur RCU
-    analogWrite(l_x_pwm_pin, REGLER_PWN_L_X_MITTEL);
-    analogWrite(l_y_pwm_pin, REGLER_PWN_L_Y_STABIL);
-    analogWrite(r_x_pwm_pin, REGLER_PWN_R_X_MITTEL);
-    analogWrite(r_y_pwm_pin, REGLER_PWN_R_Y_MITTEL);
+    analogWrite(JOYSTICK_LINKS_X_PWM_PIN, REGLER_PWN_L_X_MITTEL);
+    analogWrite(JOYSTICK_LINKS_Y_PWM_PIN, REGLER_PWN_L_Y_STABIL);
+    analogWrite(JOYSTICK_RECHTS_X_PWM_PIN, REGLER_PWN_R_X_MITTEL);
+    analogWrite(JOYSTICK_RECHTS_Y_PWM_PIN, REGLER_PWN_R_Y_MITTEL);
     quadcopter_verzoegern(Dauer);
 
     quadcopter_print("Fertig (nach ");
@@ -253,10 +253,10 @@ void quadcopter_Manuellbetrieb(){
     digitalWrite(LED_BUILTIN, LOW);
 
     // Joystick Werte ablesen
-    joystick_l_x_pos = analogRead(l_x_pin);
-    joystick_l_y_pos = analogRead(l_y_pin);
-    joystick_r_x_pos = analogRead(r_x_pin);
-    joystick_r_y_pos = analogRead(r_y_pin);
+    joystick_l_x_pos = analogRead(JOYSTICK_LINKS_X_PIN);
+    joystick_l_y_pos = analogRead(JOYSTICK_LINKS_Y_PIN);
+    joystick_r_x_pos = analogRead(JOYSTICK_RECHTS_X_PIN);
+    joystick_r_y_pos = analogRead(JOYSTICK_RECHTS_Y_PIN);
 
     // Joystick Werte im Bereich [1,255] quantisieren
     l_x_pwm_wert = map(joystick_l_x_pos, 0, 1023, 0, 255);
@@ -271,10 +271,10 @@ void quadcopter_Manuellbetrieb(){
     r_y_tastgrad = (float)joystick_r_y_pos / 1024.0;
 
     // Output Analogsignal zur RCU
-    analogWrite(l_x_pwm_pin, l_x_pwm_wert);
-    analogWrite(l_y_pwm_pin, l_y_pwm_wert);
-    analogWrite(r_x_pwm_pin, r_x_pwm_wert);
-    analogWrite(r_y_pwm_pin, r_y_pwm_wert);
+    analogWrite(JOYSTICK_LINKS_X_PWM_PIN, l_x_pwm_wert);
+    analogWrite(JOYSTICK_LINKS_Y_PWM_PIN, l_y_pwm_wert);
+    analogWrite(JOYSTICK_RECHTS_X_PWM_PIN, r_x_pwm_wert);
+    analogWrite(JOYSTICK_RECHTS_Y_PWM_PIN, r_y_pwm_wert);
 
     // Debug Monitor Anzeige
     quadcopter_println( "Links  X  "      + String(l_x_pwm_wert) 

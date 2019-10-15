@@ -25,7 +25,7 @@ void setup(){
 }
 
 void loop() {
-  if (digitalRead(modus_wahl_pin)==MODUS_AUTO)
+  if (digitalRead(MODUS_WAHL_PIN)==MODUS_AUTO)
   {
     //Autobetrieb
     // quadcopter_Autobetrieb();

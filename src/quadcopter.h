@@ -18,7 +18,7 @@
 /* Betriebsparameter*/
 /** @ingroup GRUNDFUNKTIONEN
  * @defgroup TRANSLATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Translation
- * @brief PWM-Werte der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
+ * @brief PWM-Werte (im Bereich [0:255]) der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
   * @{
  */
 #define REGLER_HALTEDAUER 2000
@@ -33,7 +33,7 @@
 
 /** @ingroup GRUNDFUNKTIONEN
  * @defgroup ROTATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Rotation
- * @brief PWM-Werte der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
+ * @brief PWM-Werte (im Bereich [0:255]) der Translationsbewegungen beim automatischen Betrieb für jeden Achse des Joystick
   * @{
  */
 #define REGLER_PWM_ROTATION_VERTICAL_RECHTS 130
@@ -44,7 +44,7 @@
 
 /** @ingroup GRUNDFUNKTIONEN
  * @defgroup STARTZUSTANDSPARAMETERN Bewegungsparameter - Start Zustand
- * @brief PWM-Werte des Startzustands für jeden Achse des Joystick
+ * @brief PWM-Werte (im Bereich [0:255]) des Startzustands für jeden Achse des Joystick
   * @{
  */
 #define REGLER_PWN_L_X_MITTEL 126
@@ -55,7 +55,7 @@
 
 /** @ingroup GRUNDFUNKTIONEN
  * @defgroup STABILZUSTANDSPARAMETERN Bewegungsparameter - Stabil Zustand
- * @brief PWM-Werte des stabilen Zustands für jeden Achse des Joystick
+ * @brief PWM-Werte (im Bereich [0:255]) des stabilen Zustands für jeden Achse des Joystick
   * @{
  */
 #define REGLER_PWN_L_X_STABIL 125
@@ -70,17 +70,17 @@
  * @brief Pins der Modulen des MCU vorbereiten
   * @{
  */
-#define l_y_pin A0        // Links  Y -- Grün   
-#define l_x_pin A1        // Links  X -- Weiß     -- Mitte: 126
-#define r_x_pin A2        // Rechts X -- Blau     -- Mitte: 127
-#define r_y_pin A3        // Rechts Y -- Braun    -- Mitte: 130
+#define JOYSTICK_LINKS_Y_PIN A0        // Links  Y -- Grün   
+#define JOYSTICK_LINKS_X_PIN A1        // Links  X -- Weiß     -- Mitte: 126
+#define JOYSTICK_RECHTS_X_PIN A2       // Rechts X -- Blau     -- Mitte: 127
+#define JOYSTICK_RECHTS_Y_PIN A3       // Rechts Y -- Braun    -- Mitte: 130
 
-#define l_y_pwm_pin 3     // Links  Y -- Grün
-#define l_x_pwm_pin 9     // Links  X -- Weiß
-#define r_x_pwm_pin 10    // Rechts     X -- Blau
-#define r_y_pwm_pin 11    // Rechts Y -- Braun
+#define JOYSTICK_LINKS_Y_PWM_PIN 3     // Links  Y -- Grün
+#define JOYSTICK_LINKS_X_PWM_PIN 9     // Links  X -- Weiß
+#define JOYSTICK_RECHTS_X_PWM_PIN 10   // Rechts X -- Blau
+#define JOYSTICK_RECHTS_Y_PWM_PIN 11   // Rechts Y -- Braun
 
-#define modus_wahl_pin 5  // Status des Kippschalters
+#define MODUS_WAHL_PIN 5  // Status des Kippschalters
 /** @} */
 
 /** @defgroup SOFTWARE_INIT Software Initialization
@@ -88,13 +88,13 @@
   * @{
  */
 //! Pins für OBEN-UNTEN Translationsbewegeung
-#define PWM_TRANSLATION_VERTICAL_OUTPUT_PIN l_y_pwm_pin 
+#define PWM_TRANSLATION_VERTICAL_OUTPUT_PIN JOYSTICK_LINKS_Y_PWM_PIN 
 //! Pins für VORWÄRTS-RÜCKWÄRTS Translationsbewegeung
-#define PWM_TRANSLATION_HORIZONTAL_OUTPUT_PIN r_y_pwm_pin 
+#define PWM_TRANSLATION_HORIZONTAL_OUTPUT_PIN JOYSTICK_RECHTS_Y_PWM_PIN 
 //! Pins für LINKS-RECHTS Translationsbewegeung
-#define PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN r_x_pwm_pin 
+#define PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN JOYSTICK_RECHTS_X_PWM_PIN 
 //! Pins für ABBIEGUNGSWINKEL LINKS-RECHTS Rotationsbewegeung um vertikalen Achse
-#define PWM_ROTATION_VERTICAL_OUTPUT_PIN l_x_pwm_pin 
+#define PWM_ROTATION_VERTICAL_OUTPUT_PIN JOYSTICK_LINKS_X_PWM_PIN 
 /** @} */
 
 /***********************************************
