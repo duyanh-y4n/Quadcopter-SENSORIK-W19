@@ -129,7 +129,19 @@ void quadcopter_links_abbiegen(unsigned int Dauer);
  * @param Dauer Dauer der Bewegung in ms 
  */
 void quadcopter_rechts_abbiegen(unsigned int Dauer);
+
+/**
+ * @brief Translationsbewegung nach vorne (Nicken)
+ * 
+ * @param Dauer Dauer der Bewegung in ms 
+ */
 void quadcopter_nach_vorne(unsigned int Dauer);
+
+/**
+ * @brief Translationsbewegung nach hinten (Nicken)
+ * 
+ * @param Dauer Dauer der Bewegung in ms 
+ */
 void quadcopter_nach_hinten(unsigned int Dauer);
 
 /**
