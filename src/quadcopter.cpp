@@ -15,6 +15,13 @@ unsigned int l_y_pwm_wert;
 unsigned int r_x_pwm_wert;
 unsigned int r_y_pwm_wert;
 
+int16_t   ax_raw, ay_raw, az_raw = 0;
+
+String r_x_buffer;
+String r_y_buffer;
+String empfang_string;
+char empfang_char_array[15];
+
 extern bool QUADCOPTER_MODUS;
 
 extern bool DEBUG_MONITOR_AKTIVIEREN;
@@ -32,6 +39,9 @@ unsigned int halte_dauer = 500;
 unsigned int brems_dauer = 100;
 
 unsigned long letzte_umschalt = 0;
+
+MPU6050 accelgyro;
+I2Cdev  I2C_M;
 
 //TODO
 void quadcopter_hardware_init(){
@@ -69,150 +79,12 @@ void quadcopter_software_init(){
     richtung = standart;
 };
 
-//TODO
-void quadcopter_links_abbiegen(unsigned int Dauer){
-    quadcopter_print("Biegt nach LINKS... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_ROTATION_VERTICAL_LINKS);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_rechts_abbiegen(unsigned int Dauer){
-    quadcopter_println("Biegt nach RECHTS...");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_ROTATION_VERTICAL_RECHTS);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_nach_vorne(unsigned int Dauer){
-    quadcopter_print("Fliegt nach VORNE... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_TRANSLATION_HORIZONTAL_OUTPUT_PIN, REGLER_PWM_RECHTS);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_nach_hinten(unsigned int Dauer){
-    quadcopter_print("Fliegt nach HINTEN... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_ROTATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_HINTEN);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_nach_rechts(unsigned int Dauer){
-    quadcopter_print("fliegt nach RECHTS... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN, REGLER_PWM_RECHTS);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_nach_links(unsigned int Dauer){
-    quadcopter_print("Fliegt nach LINKS... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_TRANSLATION_HORIZONTAL_LR_OUTPUT_PIN, REGLER_PWM_RECHTS);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_nach_oben(unsigned int Dauer){
-    quadcopter_print("Fliegt nach OBEN... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_OBEN);
-    quadcopter_verzoegern(Dauer/2);
-    
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_nach_unten(unsigned int Dauer){
-    quadcopter_print("Fliegt nach UNTEN... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_UNTEN);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_aufhalten(unsigned int Dauer){
-    quadcopter_print("HALT AUF... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(JOYSTICK_LINKS_X_PWM_PIN, REGLER_PWN_L_X_MITTEL);
-    analogWrite(JOYSTICK_LINKS_Y_PWM_PIN, REGLER_PWN_L_Y_STABIL);
-    analogWrite(JOYSTICK_RECHTS_X_PWM_PIN, REGLER_PWN_R_X_MITTEL);
-    analogWrite(JOYSTICK_RECHTS_Y_PWM_PIN, REGLER_PWN_R_Y_MITTEL);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_aufsetzen(unsigned int Dauer){
-    quadcopter_print("SETZT AUF... ");
-
-    // Output Analogsignal zur RCU
-    analogWrite(PWM_TRANSLATION_VERTICAL_OUTPUT_PIN, REGLER_PWM_UNTEN);
-    quadcopter_verzoegern(Dauer);
-
-    quadcopter_print("Fertig (nach ");
-    quadcopter_print(Dauer);
-    quadcopter_println(" ms)");
-};
-
-//TODO
-void quadcopter_verzoegern(unsigned int Dauer){
-    delay(Dauer);
-};
 
 //TODO
 void quadcopter_Debug_Monitor_aktivieren(unsigned long baudrate){
     DEBUG_MONITOR_AKTIVIEREN = true;
     Serial.begin(baudrate);
-    Serial.print("Start debugging monitor at baud ");
+    //  Serial.print("Start debugging monitor at baud ");
     Serial.println(baudrate);
 };
 
@@ -223,6 +95,58 @@ void quadcopter_Debug_Monitor_deaktivieren(){
 };
 
 //TODO
+
+void imu_setup() {
+  // join I2C bus (I2Cdev library doesn't do this automatically)
+  Wire.begin();
+  accelgyro.initialize();
+  // verify connection
+  uint8_t imu_id = accelgyro.getDeviceID();	
+	delay(1000);
+}
+
+void serial_empfang_neigung() {
+  if (Serial.available()) {
+    digitalWrite(6, HIGH);
+    empfang_string = Serial.readStringUntil('E');
+    digitalWrite(6, LOW);
+    empfang_string.toCharArray(empfang_char_array, empfang_string.length());
+    r_x_buffer = strtok(empfang_char_array, "X");
+    r_y_buffer = strtok(NULL, "Y");
+    r_x_pwm_wert = byte(r_x_buffer.toInt());
+    r_y_pwm_wert = byte(r_y_buffer.toInt());
+  }
+
+}
+
+void quadcopter_neigung_betrieb() {
+  digitalWrite(8, HIGH);
+  accelgyro.getAcceleration(&ax_raw, &ay_raw, &az_raw);
+  digitalWrite(8, LOW);
+  Serial.println("data," + String(ax_raw) + "," + String(ay_raw) + "," + String(az_raw) + ",");
+  if (ax_raw > 7000) {
+    digitalWrite(7, HIGH);
+  }
+  // Joystick Werte ablesen
+  joystick_l_x_pos = analogRead(JOYSTICK_LINKS_X_PIN);
+  joystick_l_y_pos = analogRead(JOYSTICK_LINKS_Y_PIN);
+
+  // Joystick Werte im Bereich [1,255] quantisieren
+  l_x_pwm_wert = map(joystick_l_x_pos, 0, 1023, 0, 255);
+  l_y_pwm_wert = map(joystick_l_y_pos, 0, 1023, 0, 255);
+
+  serial_empfang_neigung();
+
+  if (r_x_pwm_wert > 250) {
+    digitalWrite(7, LOW);
+  }
+
+  analogWrite(JOYSTICK_LINKS_X_PWM_PIN, l_x_pwm_wert);
+  analogWrite(JOYSTICK_LINKS_Y_PWM_PIN, l_y_pwm_wert);
+  analogWrite(JOYSTICK_RECHTS_X_PWM_PIN, r_x_pwm_wert);
+  analogWrite(JOYSTICK_RECHTS_Y_PWM_PIN, r_y_pwm_wert);
+}
+
 void quadcopter_Autobetrieb(){
     // Debug Monitor Anzeige
     quadcopter_println("__________________________________");
@@ -421,6 +345,7 @@ void quadcopter_Autobetrieb(){
     quadcopter_println("Automodus fertig");
     quadcopter_println("__________________________________");
 };
+
 
 //TODO
 void quadcopter_Manuellbetrieb(){

@@ -43,9 +43,15 @@ bool QUADCOPTER_MODUS;
 bool DEBUG_MONITOR_AKTIVIEREN;
 
 void setup(){
+  pinMode(8, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
   quadcopter_hardware_init();
   quadcopter_software_init();
-  quadcopter_Debug_Monitor_aktivieren(9600);
+  imu_setup();
+  Serial.begin(115200);
+  Serial.setTimeout(10);
+  //quadcopter_Debug_Monitor_aktivieren(115200);
 }
 
 void loop() {
@@ -54,7 +60,7 @@ void loop() {
     QUADCOPTER_MODUS = MODUS_AUTO;
     digitalWrite(LED_BUILTIN, HIGH);
     //Autobetrieb
-    quadcopter_Autobetrieb();
+    quadcopter_neigung_betrieb();
     
   } else
   {

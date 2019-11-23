@@ -1,6 +1,10 @@
 /** @file */
 
 #include <Arduino.h>
+#include <Wire.h>
+#include "I2Cdev.h"
+#include "MPU6050.h"
+
 /***********************************************
  *  MACROS UND PROJEKTPARAMETERN 
 ***********************************************/
@@ -41,6 +45,8 @@
 #define REGLER_PWM_HINTEN 125
 #define REGLER_PWM_HALT 125 //! unused
 /** @} */
+
+#define SERIAL_INPUT_SIZE 9
 
 /** @ingroup GRUNDFUNKTIONEN
  * @defgroup ROTATIONSBEWEGUNGSPARAMETERN Bewegungsparameter - Rotation
@@ -267,4 +273,9 @@ void quadcopter_Manuellbetrieb();
  * @param Modus 
  */
 void quadcopter_Modus_veraendern(bool Modus);
+
+void serial_empfang_neigung(void);
+void imu_setup(void);
+void quadcopter_neigung_betrieb(void);
+
 /** @} */
